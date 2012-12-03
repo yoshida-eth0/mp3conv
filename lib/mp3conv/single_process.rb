@@ -6,10 +6,10 @@ module MP3Conv
     PID_FILE = "/var/run/mp3conv.pid"
 
     class << self
-      def single_run(settings)
+      def single_run(input_dir, output_dir, settings)
         if !running?
           File.open(PID_FILE, "w") {|f| f.write(Process.pid)}
-          Job.run_loop(settings)
+          Job.run_loop(input_dir, output_dir, settings)
         end
       end
 

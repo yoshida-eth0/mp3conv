@@ -5,13 +5,31 @@ require 'rubygems'
 $LOAD_PATH << File.expand_path(__FILE__+"/../../lib/")
 require 'mp3conv'
 
-MP3Conv::SingleProcess.single_run(
-  "/hdd2/mp3conv/mp3conv_input",
-  "/hdd2/mp3conv/mp3conv_output",
+if ARGV.length==0
+  puts "Usage: #{File.basename($0)} input_dir [output_dir]"
+  exit 1
+end
+
+input_dir = ARGV[0]
+output_dir = ARGV[1]
+make_output_top_dir = true
+unless output_dir
+  output_dir = input_dir + "/mp3conv_output"
+  make_output_top_dir = false
+end
+
+unless File.exist?(input_dir)
+  puts "input dir is not found: #{input_dir}"
+  exit 1
+end
+
+MP3Conv::Job.new(
+  input_dir,
+  output_dir,
   {
-    :make_output_top_dir => true,
-    :running_dir => "/hdd2/mp3conv/mp3conv_running",
-    :output_org_dir => "/hdd2/mp3conv/mp3conv_output_org",
+    :make_output_top_dir => make_output_top_dir,
+    :running_dir => nil,
+    :output_org_dir => nil,
     :audio_exts => ['mp3', 'wma', 'wav', 'ogg', 'flac', 'ape'],
     :stdout => STDOUT,
     :ffmpeg => {
@@ -34,4 +52,4 @@ MP3Conv::SingleProcess.single_run(
       },
     },
   }
-)
+).run

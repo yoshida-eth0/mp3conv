@@ -8,7 +8,7 @@ require 'mp3conv/command_base'
 
 module MP3Conv
   class FFMpeg < CommandBase
-    @@bin = "/usr/bin/ffmpeg"
+    @@default_bin = "/usr/bin/ffmpeg"
     @@default_in_options = {}
     @@default_out_options = {
         '-acodec' => 'libmp3lame',
@@ -19,19 +19,19 @@ module MP3Conv
 
     attr_reader :in_options, :in_file, :out_options, :out_file
 
-    def initialize(in_file, out_file=nil, settings=nil)
+    def initialize(in_file, out_file, settings=nil)
       @in_file = File.expand_path(in_file)
-      @out_file = out_file
+      @out_file = File.expand_path(out_file)
 
       settings ||= {}
-      @bin = settings[:bin] || @@bin
+      @bin = settings[:bin] || @@default_bin
       @in_options = @@default_in_options.merge(settings[:in_options] || {})
       @out_options = @@default_out_options.merge(settings[:out_options] || {})
     end
 
     def cmd
       cmd = []
-      cmd << @@bin
+      cmd << @bin
       cmd << "-y"
       @in_options.each_pair do |k,v|
         cmd << k

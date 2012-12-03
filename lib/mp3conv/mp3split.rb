@@ -6,7 +6,7 @@ require 'mp3conv/command_base'
 
 module MP3Conv
   class MP3Split < CommandBase
-    @@bin = "/usr/bin/mp3splt"
+    @@default_bin = "/usr/bin/mp3splt"
     @@default_options = {
       "-a" => nil,
       "-f" => nil,
@@ -19,7 +19,7 @@ module MP3Conv
       @dst_dir = dst_dir
 
       settings ||= {}
-      @bin = settings[:bin] || @@bin
+      @bin = settings[:bin] || @@default_bin
       @options = @@default_options.merge(settings[:options] || {})
     end
 
