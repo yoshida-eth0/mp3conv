@@ -55,16 +55,22 @@ module MP3Conv
       # make parent directory
       FileUtils.mkdir_p(File.dirname(@out_file)) 
 
+      # to filename
+      out_file = @out_file
+      while File.directory?(out_file)
+        out_file += "/" + File.basename(out_file)
+      end
+
       # check permit
-      if !File.writable?(File.exist?(@out_file) ? @out_file : File.dirname(@out_file))
-        raise IOError, "permission denied: #{@out_file}"
+      if !File.writable?(File.exist?(out_file) ? out_file : File.dirname(out_file))
+        raise IOError, "permission denied: #{out_file}"
       end
 
       # convert
       _execute(cmd)
 
       # move
-      FileUtils.mv(tmp_out_file, @out_file)
+      FileUtils.mv(tmp_out_file, out_file)
 
       true
     end

@@ -5,11 +5,13 @@ require 'rubygems'
 $LOAD_PATH << File.expand_path(__FILE__+"/../../lib/")
 require 'mp3conv'
 
-if ARGV.length==0
+# usage
+if ARGV.length==0 || ARGV[0]=="-h" || ARGV[0]=="--help"
   puts "Usage: #{File.basename($0)} input_dir [output_dir]"
   exit 1
 end
 
+# args
 input_dir = ARGV[0]
 output_dir = ARGV[1]
 make_output_top_dir = true
@@ -18,11 +20,13 @@ unless output_dir
   make_output_top_dir = false
 end
 
+# check input
 unless File.exist?(input_dir)
   puts "input dir is not found: #{input_dir}"
   exit 1
 end
 
+# run
 MP3Conv::Job.new(
   input_dir,
   output_dir,
@@ -30,7 +34,7 @@ MP3Conv::Job.new(
     :make_output_top_dir => make_output_top_dir,
     :running_dir => nil,
     :output_org_dir => nil,
-    :audio_exts => ['mp3', 'wma', 'wav', 'ogg', 'flac', 'ape'],
+    :audio_exts => ['mp3', 'm4a', 'wma', 'wav', 'ogg', 'flac', 'ape'],
     :stdout => STDOUT,
     :ffmpeg => {
       :bin => "/usr/bin/ffmpeg",
