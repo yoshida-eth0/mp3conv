@@ -34,7 +34,7 @@ MP3Conv::Job.new(
     :make_output_top_dir => make_output_top_dir,
     :running_dir => nil,
     :output_org_dir => nil,
-    :audio_exts => ['mp3', 'm4a', 'wma', 'wav', 'ogg', 'flac', 'ape'],
+    :audio_exts => ['mp3', 'm4a', 'wma', 'wav', 'ogg', 'flac', 'ape', 'tta'],
     :stdout => STDOUT,
     :ffmpeg => {
       :bin => "/usr/bin/ffmpeg",

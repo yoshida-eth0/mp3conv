@@ -12,7 +12,7 @@ MP3Conv::SingleProcess.single_run(
     :make_output_top_dir => true,
     :running_dir => "/hdd2/mp3conv/mp3conv_running",
     :output_org_dir => "/hdd2/mp3conv/mp3conv_output_org",
-    :audio_exts => ['mp3', 'm4a', 'wma', 'wav', 'ogg', 'flac', 'ape'],
+    :audio_exts => ['mp3', 'm4a', 'wma', 'wav', 'ogg', 'flac', 'ape', 'tta'],
     :stdout => STDOUT,
     :ffmpeg => {
       :bin => "/usr/bin/ffmpeg",

@@ -20,7 +20,7 @@ module MP3Conv
 
       settings ||= {}
       @bin = settings[:bin] || @@default_bin
-      @options = @@default_options.merge(settings[:options] || {})
+      @options = 0<(settings[:options] || {}).length ? settings[:options] : @@default_options.dup
     end
 
     def cmd
